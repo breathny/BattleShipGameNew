@@ -1,5 +1,5 @@
+#include"stdafx.h"
 #include "Cruiser.h"
-
 
 
 CCruiser::CCruiser()

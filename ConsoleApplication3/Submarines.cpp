@@ -1,5 +1,5 @@
+#include"stdafx.h"
 #include "Submarines.h"
-
 
 
 CSubmarines::CSubmarines(void)

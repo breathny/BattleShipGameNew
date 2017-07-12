@@ -1,6 +1,9 @@
 #pragma once
-#include "GameMode.h"
-#include <cstring>
+
+//#ifndef SHIP_H //여기 두줄이 #pragma once라 동일한코드
+//#define SHIP_H
+//#endif // !SHIP_H
+#include"header.h"
 
 class CShip
 {
@@ -15,16 +18,19 @@ public:
 	std::string GetName(){ return m_Name;}
 	ShipType GetType(){ return m_Type;}
 	int GetHP() { return m_HP; }
+	DIRECTION GetDirection() { return m_Direction; }
+	
+	void SetDirection(DIRECTION direction) { m_Direction = direction; }
 
 	void PrintPosition();
-	 void PrintTest();
+	virtual void PrintTest();
 
 protected:
-	ShipType m_Type;
+	ShipType m_Type;	
 	std::string m_Name;
 	std::vector<Position> m_Pos;
 	int		 m_HP;
-
+	DIRECTION	m_Direction;
 };
 
 

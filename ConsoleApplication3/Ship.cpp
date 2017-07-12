@@ -1,10 +1,10 @@
+#include"stdafx.h"
 #include "Ship.h"
-
-
 
 CShip::CShip(void)
 {
 	m_HP = 0;
+	m_Direction = VERTICAL;
 }
 
 CShip::~CShip()
@@ -57,19 +57,20 @@ void CShip::AddPosition(Position pos)
 
 HitResult CShip::HitCheck(Position hitPos)
 {
-	if ((hitPos.x == '0') || (hitPos.y == '0'))
+	if ((hitPos.x == '0') || (hitPos.y == '0')|| (m_Pos.size() == 0))
 	{
 		return HitResult::MISS;
 	}
 
 	for (int i = 0; i < m_HP; i++)
 	{
+		
 		if ((hitPos.x == m_Pos[i].x)
 			&& (hitPos.y == m_Pos[i].y))
 		{
-			m_Pos.erase(m_Pos.begin() + i);
+		/*	m_Pos.erase(m_Pos.begin() + i);
 			m_HP--;
-
+*/
 			return (m_HP == 0)? HitResult::DESTROYED : HitResult::HIT;
 			//if (m_HP <= 0) //삼항연산자로 줄일수 있다.
 			//	return HitResult::DESTROYED;
@@ -87,6 +88,7 @@ void CShip::PrintPosition()
 		printf("%s Position[%d] - %c%c\n", m_Name.c_str(), i, m_Pos[i].x, m_Pos[i].y);
 	}
 }
+
 
 void CShip::PrintTest()
 {

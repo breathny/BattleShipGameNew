@@ -97,8 +97,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -145,8 +144,10 @@
     <ClInclude Include="Cruiser.h" />
     <ClInclude Include="Destroyer.h" />
     <ClInclude Include="GameMode.h" />
+    <ClInclude Include="header.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Ship.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Submarines.h" />
   </ItemGroup>
   <ItemGroup>

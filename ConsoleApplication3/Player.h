@@ -1,7 +1,6 @@
 #pragma once
-#include <vector>
-#include<list>
-#include"Ship.h"
+#include "header.h"
+class CShip;
 class CPlayer
 {
 public:
@@ -9,9 +8,11 @@ public:
 	~CPlayer();
 	void AddShip(ShipType type);
 	void PrintShip();
+	void PlaceRandomPostion(CShip* ship);
+	bool IsEmptyFiled(Position position, DIRECTION direction, int size);
 	
 protected:
-	std::vector<CShip*> pShipList;
+	std::vector<CShip*> m_ShipList;
 	//CShip* shipList[5];
 	
 

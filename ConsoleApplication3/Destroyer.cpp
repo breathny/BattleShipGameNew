@@ -1,5 +1,5 @@
+#include"stdafx.h"
 #include "Destroyer.h"
-
 
 
 CDestroyer::CDestroyer()

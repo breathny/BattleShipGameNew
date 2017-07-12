@@ -1,12 +1,12 @@
+#include"stdafx.h"
 #include "Battleship.h"
-
 
 
 CBattleship::CBattleship()
 {
 	m_Name = "battleship";
 	m_Type = BATTLESHIP;
-	m_HP = 2;
+	m_HP = 4;
 }
 
 

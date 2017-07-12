@@ -1,6 +1,5 @@
+#include"stdafx.h"
 #include "AirCraft.h"
-
-
 
 CAirCraft::CAirCraft()
 {
