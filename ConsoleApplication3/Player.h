@@ -14,7 +14,7 @@ public:
 	void ShowMyField();
 	
 protected:
-	std::vector<CShip*> m_ShipList;
+	std::vector<CShip*> m_pShipList;
 	CFiled m_MyField[MAX_Y][MAX_X];
 	CFiled m_YourField[MAX_Y][MAX_X];
 	

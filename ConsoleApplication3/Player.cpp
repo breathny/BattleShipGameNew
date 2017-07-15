@@ -16,7 +16,7 @@ CPlayer::CPlayer()
 	AddShip(DESTROYER);
 	AddShip(SUBMARINE);
 
-	for (auto pShip : m_ShipList)
+	for (auto pShip : m_pShipList)
 	{
 		PlaceRandomPostion(pShip);
 		pShip->PrintPosition();
@@ -33,11 +33,11 @@ CPlayer::CPlayer()
 
 CPlayer::~CPlayer()
 {	
-	for (auto pShip : m_ShipList)
+	for (auto pShip : m_pShipList)
 	{
 		if(pShip != NULL) delete pShip;
 	}
-	m_ShipList.clear();
+	m_pShipList.clear();
 	
 }
 
@@ -54,33 +54,33 @@ void CPlayer::AddShip(ShipType type)
 	case AIRCRAFT:
 	{
 		CAirCraft* aircraft = new CAirCraft();
-		m_ShipList.push_back(aircraft);
+		m_pShipList.push_back(aircraft);
 	}
 		break;
 	case BATTLESHIP:
 	{
 		CBattleship* battleShip = new CBattleship();
-		m_ShipList.push_back(battleShip);
+		m_pShipList.push_back(battleShip);
 	}
 		break;
 	case CRUISER:
 	{
 		CCruiser* cruiser = new CCruiser();
-		m_ShipList.push_back(cruiser);
+		m_pShipList.push_back(cruiser);
 
 	}
 		break;
 	case DESTROYER:
 	{
 		CDestroyer *destroyer= new CDestroyer();
-		m_ShipList.push_back(destroyer);
+		m_pShipList.push_back(destroyer);
 	}
 		
 		break;
 	case SUBMARINE:
 	{
 		CSubmarines* submarines = new CSubmarines();
-		m_ShipList.push_back(submarines);
+		m_pShipList.push_back(submarines);
 	}
 		
 		break;
@@ -90,9 +90,9 @@ void CPlayer::AddShip(ShipType type)
 
 void CPlayer::PrintShip()
 {
-	for (int i = 0; i < (int)m_ShipList.size(); i++)
+	for (int i = 0; i < (int)m_pShipList.size(); i++)
 	{
-		(*m_ShipList[i]).PrintTest();
+		(*m_pShipList[i]).PrintTest();
 
 	}
 }
@@ -104,12 +104,12 @@ bool CPlayer::IsEmptyField(Position position, DIRECTION direction,int size)
 		return false;
 	
 
-	for (auto pShip : m_ShipList)
+	for (auto pShip : m_pShipList)
 	{
-		if (pShip->HitCheck(position) != MISS)// 놓으려는 위치에 배가 있는지 체크
+		if (pShip->HitCheck(position) != MISS)	// 놓으려는 위치에 배가 있는지 체크
 			return false;
 
-		if (pShip->GetDirection() != direction) //방향이 같을때만 아랫줄로.
+		if (pShip->GetDirection() != direction)	//방향이 같을때만 아랫줄로.
 			continue;
 
 		if (direction == HORIZON)
@@ -187,7 +187,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	std::cout << " ========================== [First]" << std::endl;
 
 	////엠티인지 체크 
-	while (IsEmptyField(randomPosition, randomDirection,pShip->GetHP()) == false)
+	while (IsEmptyField(randomPosition, randomDirection, pShip->GetHP()) == false)
 	{
 		randomPosition.x = 'A' + (rand() % ((int)MAX_X));
 		randomPosition.y = '1' + (rand() % ((int)MAX_Y));
