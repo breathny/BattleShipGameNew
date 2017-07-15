@@ -97,7 +97,7 @@ void CPlayer::PrintShip()
 	}
 }
 
-bool CPlayer::IsEmptyFiled(Position position, DIRECTION direction,int size)
+bool CPlayer::IsEmptyField(Position position, DIRECTION direction,int size)
 {
 	if ( (direction == HORIZON && ((position.x + size-1) >= ('A' +MAX_X)) ) 
 		||( direction == VERTICAL && ((position.y + size-1) >= ('1'+ MAX_Y)) ))
@@ -114,7 +114,7 @@ bool CPlayer::IsEmptyFiled(Position position, DIRECTION direction,int size)
 
 		if (direction == HORIZON)
 		{
-			int tempX =position.x;
+			char tempX = position.x;
 			for (int i = 0; i < pShip->GetHP(); i++)
 			{
 				if (pShip->HitCheck(Position(tempX, position.y)) != MISS)
@@ -124,7 +124,7 @@ bool CPlayer::IsEmptyFiled(Position position, DIRECTION direction,int size)
 		}
 		else
 		{
-			int tempY = position.y;
+			char tempY = position.y;
 			for (int i = 0; i < pShip->GetHP(); i++)
 			{
 				if (pShip->HitCheck(Position(position.x, tempY)) != MISS)
@@ -187,7 +187,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	std::cout << " ========================== [First]" << std::endl;
 
 	////엠티인지 체크 
-	while (IsEmptyFiled(randomPosition, randomDirection,pShip->GetHP()) == false)
+	while (IsEmptyField(randomPosition, randomDirection,pShip->GetHP()) == false)
 	{
 		randomPosition.x = 'A' + (rand() % ((int)MAX_X));
 		randomPosition.y = '1' + (rand() % ((int)MAX_Y));

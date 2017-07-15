@@ -10,7 +10,7 @@ public:
 	void AddShip(ShipType type);
 	void PrintShip();
 	void PlaceRandomPostion(CShip* ship);
-	bool IsEmptyFiled(Position position, DIRECTION direction, int size);
+	bool IsEmptyField(Position position, DIRECTION direction, int size);
 	void ShowMyFiled();
 	
 protected:
