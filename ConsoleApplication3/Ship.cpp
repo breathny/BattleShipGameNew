@@ -89,7 +89,7 @@ HitResult CShip::HitCheck(Position hitPos)
 
 void CShip::PrintPosition()
 {
-	for (size_t i = 0; i < m_Pos.size(); i++)
+	for (int i = 0; i < m_Pos.size(); i++)
 	{
 		printf("%s Position[%d] - %c%c\n", m_Name.c_str(), i, m_Pos[i].x, m_Pos[i].y);
 	}

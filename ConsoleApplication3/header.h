@@ -1,13 +1,14 @@
 #pragma once
+
+#define MAX_X 5
+#define MAX_Y 5
+
 enum DIRECTION
 {
 	VERTICAL,
 	HORIZON,
 	MAX
 };
-
-#define MAX_X 5
-#define MAX_Y 5
 struct Position
 {
 	Position()
