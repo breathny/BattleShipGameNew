@@ -11,7 +11,7 @@ public:
 	void PrintShip();
 	void PlaceRandomPostion(CShip* ship);
 	bool IsEmptyField(Position position, DIRECTION direction, int size);
-	void ShowMyFiled();
+	void ShowMyField();
 	
 protected:
 	std::vector<CShip*> m_ShipList;

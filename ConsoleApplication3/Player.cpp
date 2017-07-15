@@ -138,7 +138,7 @@ bool CPlayer::IsEmptyField(Position position, DIRECTION direction,int size)
 
 }
 
-void CPlayer::ShowMyFiled()
+void CPlayer::ShowMyField()
 {
 	for (int y = 0; y < MAX_Y; y++)
 	{
