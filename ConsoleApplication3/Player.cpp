@@ -181,11 +181,10 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	randomPosition.y = '1' + (rand() % ((int)MAX_Y));
 	randomDirection = (DIRECTION)(rand() % (int)DIRECTION::MAX);
 
-	std::cout << randomPosition.x<<std::endl;
-	std::cout << randomPosition.y<<std::endl;
-	std::cout << randomDirection << std::endl;
-	std::cout << pShip->GetHP() << std::endl;
-	std::cout << " ========================== " << std::endl;
+	std::cout << "[" << randomPosition.x << ", " << randomPosition.y << "] - ";
+	std::cout << ((randomDirection == 0) ? "Vertical" : "Horizon" ) << std::endl;
+	std::cout << ", HP:" << pShip->GetHP() << std::endl;
+	std::cout << " ========================== [First]" << std::endl;
 
 	////엠티인지 체크 
 	while (IsEmptyFiled(randomPosition, randomDirection,pShip->GetHP()) == false)
@@ -193,11 +192,11 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		randomPosition.x = 'A' + (rand() % ((int)MAX_X));
 		randomPosition.y = '1' + (rand() % ((int)MAX_Y));
 		randomDirection = (DIRECTION)(rand() % (int)DIRECTION::MAX);
-		std::cout << randomPosition.x << std::endl;
-		std::cout << randomPosition.y << std::endl;
-		std::cout << randomDirection << std::endl;
-		std::cout << pShip->GetHP() << std::endl;
-		std::cout << " ========================== " << std::endl;
+
+		std::cout << "[" << randomPosition.x << ", " << randomPosition.y << "] - ";
+		std::cout << ((randomDirection == 0) ? "Vertical" : "Horizon") << std::endl;
+		std::cout << ", HP:" << pShip->GetHP() << std::endl;
+		std::cout << " ========================== [Retry]" << std::endl;
 			
 	}
 
