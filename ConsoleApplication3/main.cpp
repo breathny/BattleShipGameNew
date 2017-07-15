@@ -56,6 +56,7 @@ void main()
 	////}
 
 	CPlayer player;
+	player.ShowMyFiled();
 
 	getchar(); 
 }

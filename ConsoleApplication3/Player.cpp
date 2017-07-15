@@ -8,7 +8,6 @@
 #include "Ship.h"
 #include "header.h"
 
-
 CPlayer::CPlayer()
 {
 	AddShip(AIRCRAFT);
@@ -23,12 +22,17 @@ CPlayer::CPlayer()
 		pShip->PrintPosition();
 	}
 
+	for (int i = 0; i < MAX_Y; i++)
+	{
+		for (int j = 0; j < MAX_X; j++)
+		{
+			m_MyField[i][j].SetFiledType(HitResult::NONE);
+		}
+	}
 }
-
 
 CPlayer::~CPlayer()
 {	
-	
 	for (auto pShip : m_ShipList)
 	{
 		if(pShip != NULL) delete pShip;
@@ -80,7 +84,6 @@ void CPlayer::AddShip(ShipType type)
 	}
 		
 		break;
-	
 	}
 	
 }
@@ -92,13 +95,12 @@ void CPlayer::PrintShip()
 		(*m_ShipList[i]).PrintTest();
 
 	}
-
 }
 
 bool CPlayer::IsEmptyFiled(Position position, DIRECTION direction,int size)
 {
-	if ( (direction == HORIZON &&  position.x + size >= ('A' +MAX_X) ) 
-		|| (direction == VERTICAL && position.y + size <= ('1'+ MAX_Y)) )
+	if ( (direction == HORIZON && ((position.x + size-1) >= ('A' +MAX_X)) ) 
+		||( direction == VERTICAL && ((position.y + size-1) >= ('1'+ MAX_Y)) ))
 		return false;
 	
 
@@ -135,6 +137,41 @@ bool CPlayer::IsEmptyFiled(Position position, DIRECTION direction,int size)
 	return true;
 
 }
+
+void CPlayer::ShowMyFiled()
+{
+	for (int y = 0; y < MAX_Y; y++)
+	{
+		for (int x = 0; x < MAX_X; x++)
+		{
+			HitResult hitResult = m_MyField[y][x].GetFiledType();
+			if (m_MyField[y][x].m_pShip != nullptr)
+			{
+				std::string printShipNames[5] = { "A","B","C","D","S" };
+				std::cout << " 0(";
+				std::cout << printShipNames[m_MyField[y][x].GetShipType()] << ") ";
+			}
+			else if (hitResult ==HitResult::NONE)
+			{
+				std::cout << " 0( ) ";
+			}
+			else if(hitResult == HitResult::HIT)
+			{
+				std::string printShipNames[5] = { "A","B","C","D","S" };
+				std::cout << " H(";
+				std::cout << printShipNames[m_MyField[y][x].GetShipType()] <<") ";
+			}
+			else if (hitResult == HitResult::DESTROYED)
+			{
+				std::string printShipNames[5] = { "A","B","C","D","S" };
+				std::cout << " D(";
+				std::cout << printShipNames[m_MyField[y][x].GetShipType()] << ") ";
+			}
+		}
+		std::cout << std::endl;
+	}
+}
+
 void CPlayer::PlaceRandomPostion(CShip* pShip)
 {
 	Position randomPosition;
@@ -147,6 +184,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	std::cout << randomPosition.x<<std::endl;
 	std::cout << randomPosition.y<<std::endl;
 	std::cout << randomDirection << std::endl;
+	std::cout << pShip->GetHP() << std::endl;
 	std::cout << " ========================== " << std::endl;
 
 	////엠티인지 체크 
@@ -158,6 +196,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		std::cout << randomPosition.x << std::endl;
 		std::cout << randomPosition.y << std::endl;
 		std::cout << randomDirection << std::endl;
+		std::cout << pShip->GetHP() << std::endl;
 		std::cout << " ========================== " << std::endl;
 			
 	}
@@ -168,14 +207,19 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	for (int i = 0; i < pShip->GetHP(); i++)
 	{
 		pShip->AddPosition(randomPosition);
-		if (pShip->GetDirection() == HORIZON)
-		{
-			randomPosition.x += 1;
-		}
-		else
-		{
-			randomPosition.y += 1;
-		}
-	}
+		//맵에도 표시해주기
+		int x = randomPosition.x - 'A';
+		int y = randomPosition.y - '1';
 
+
+		m_MyField[y][x].m_pShip = pShip;
+		
+		if (pShip->GetDirection() == HORIZON)
+			randomPosition.x += 1;
+		else
+			randomPosition.y += 1;
+	}
 }
+
+
+

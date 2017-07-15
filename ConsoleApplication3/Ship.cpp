@@ -49,11 +49,15 @@ void CShip::AddPosition(Position pos)
 
 	if ((pos.x < 'A') || (pos.x > 'H') || (pos.y < '1') || (pos.y > '8'))
 	{
+		std::cout << "position value is out of range position : " << pos.x << ", " << pos.y << std::endl;
 		return;
 	}
 	
 	m_Pos.push_back(pos);
+
+
 }
+
 
 HitResult CShip::HitCheck(Position hitPos)
 {
@@ -64,7 +68,9 @@ HitResult CShip::HitCheck(Position hitPos)
 
 	for (int i = 0; i < m_HP; i++)
 	{
-		
+		if (m_Pos.size() < i)
+			break;
+
 		if ((hitPos.x == m_Pos[i].x)
 			&& (hitPos.y == m_Pos[i].y))
 		{

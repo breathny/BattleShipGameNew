@@ -28,6 +28,7 @@ struct Position
 
 enum HitResult
 {
+	NONE,
 	HIT,
 	MISS,
 	DESTROYED
@@ -39,5 +40,7 @@ enum ShipType
 	BATTLESHIP,
 	CRUISER,
 	DESTROYER,
-	SUBMARINE
+	SUBMARINE,
+
 };
+
