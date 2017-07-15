@@ -106,12 +106,6 @@ bool CPlayer::IsEmptyField(Position position, DIRECTION direction,int size)
 
 	for (auto pShip : m_pShipList)
 	{
-		if (pShip->HitCheck(position) != MISS)	// 놓으려는 위치에 배가 있는지 체크
-			return false;
-
-		if (pShip->GetDirection() != direction)	//방향이 같을때만 아랫줄로.
-			continue;
-
 		if (direction == HORIZON)
 		{
 			char tempX = position.x;
@@ -203,6 +197,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	std::cout << "end IS Empty Func (0 " << std::endl;
 	pShip->SetDirection(randomDirection);
 
+
 	for (int i = 0; i < pShip->GetHP(); i++)
 	{
 		pShip->AddPosition(randomPosition);
@@ -218,6 +213,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		else
 			randomPosition.y += 1;
 	}
+	ShowMyField();
 }
 
 
