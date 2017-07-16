@@ -10,10 +10,12 @@ public:
 	CPlayer();
 	~CPlayer();
 	void AddShip(ShipType type);
-	void PrintShip();
-	void PlaceRandomPostion(CShip* ship);
 	bool IsEmptyField(Position position, DIRECTION direction, int size);
+	void PlaceRandomPostion(CShip* ship);
 	void ShowMyField();
+
+	void PrintShip();
+	void ShipDeployTest();
 	
 protected:
 	std::vector<CShip*> m_pShipList;

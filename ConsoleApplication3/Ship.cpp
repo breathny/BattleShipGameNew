@@ -49,7 +49,7 @@ void CShip::AddPosition(Position pos)
 
 	if ((pos.x < 'A') || (pos.x > 'H') || (pos.y < '1') || (pos.y > '8'))
 	{
-		std::cout << "position value is out of range position : " << pos.x << ", " << pos.y << std::endl;
+		//std::cout << "position value is out of range position : " << pos.x << ", " << pos.y << std::endl;
 		return;
 	}
 	
