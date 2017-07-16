@@ -1,20 +1,20 @@
 #include "stdafx.h"
-#include "Filed.h"
+#include "Field.h"
 #include "Ship.h"
 
 
-CFiled::CFiled()
+CField::CField()
 {
 	m_pShip = nullptr;
 	m_HitResult = HitResult::NONE;
 }
 
 
-CFiled::~CFiled()
+CField::~CField()
 {
 }
 
-ShipType CFiled::GetShipType()
+ShipType CField::GetShipType()
 {
 	return m_pShip->GetType();
 }

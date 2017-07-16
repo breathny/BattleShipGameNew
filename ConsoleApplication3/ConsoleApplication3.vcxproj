@@ -144,7 +144,7 @@
     <ClInclude Include="Battleship.h" />
     <ClInclude Include="Cruiser.h" />
     <ClInclude Include="Destroyer.h" />
-    <ClInclude Include="Filed.h" />
+    <ClInclude Include="Field.h" />
     <ClInclude Include="GameMode.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="Player.h" />
@@ -157,7 +157,7 @@
     <ClCompile Include="Battleship.cpp" />
     <ClCompile Include="Cruiser.cpp" />
     <ClCompile Include="Destroyer.cpp" />
-    <ClCompile Include="Filed.cpp" />
+    <ClCompile Include="Field.cpp" />
     <ClCompile Include="GameMode.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />

@@ -1,7 +1,9 @@
 #pragma once
 #include "header.h"
+
+#include "Field.h"
 class CShip;
-#include"Filed.h"
+
 class CPlayer
 {
 public:
@@ -15,8 +17,8 @@ public:
 	
 protected:
 	std::vector<CShip*> m_pShipList;
-	CFiled m_MyField[MAX_Y][MAX_X];
-	CFiled m_YourField[MAX_Y][MAX_X];
+	CField m_MyField[MAX_Y][MAX_X];
+	CField m_YourField[MAX_Y][MAX_X];
 	
 };
 

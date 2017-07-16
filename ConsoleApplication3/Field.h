@@ -1,11 +1,12 @@
 #pragma once
 class CShip;
 #include"header.h"
-class CFiled
+
+class CField
 {
 public:
-	CFiled();
-	~CFiled();
+	CField();
+	~CField();
 	CShip* m_pShip;
 	HitResult m_HitResult;
 	

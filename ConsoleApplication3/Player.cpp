@@ -1,12 +1,12 @@
 #include "stdafx.h"
 #include "Player.h"
+
+#include "Ship.h"
 #include "Aircraft.h"
 #include "Battleship.h"
 #include "Cruiser.h"
 #include "Submarines.h"
 #include "Destroyer.h"
-#include "Ship.h"
-#include "header.h"
 
 CPlayer::CPlayer()
 {
