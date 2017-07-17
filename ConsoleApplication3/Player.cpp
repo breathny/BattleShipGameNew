@@ -33,37 +33,36 @@ void CPlayer::AddShip(EShipType type)
 	switch(type)
 	{
 	case AIRCRAFT:
-	{
-		CAirCraft* aircraft = new CAirCraft();
-		m_pShipList.push_back(aircraft);
-	}
+		{
+			CAirCraft* aircraft = new CAirCraft();
+			m_pShipList.push_back(aircraft);
+		}
 		break;
 	case BATTLESHIP:
-	{
-		CBattleship* battleShip = new CBattleship();
-		m_pShipList.push_back(battleShip);
-	}
+		{
+			CBattleship* battleShip = new CBattleship();
+			m_pShipList.push_back(battleShip);
+		}
 		break;
 	case CRUISER:
-	{
-		CCruiser* cruiser = new CCruiser();
-		m_pShipList.push_back(cruiser);
-	}
+		{
+			CCruiser* cruiser = new CCruiser();
+			m_pShipList.push_back(cruiser);
+		}
 		break;
 	case DESTROYER:
-	{
-		CDestroyer *destroyer= new CDestroyer();
-		m_pShipList.push_back(destroyer);
-	}
+		{
+			CDestroyer *destroyer= new CDestroyer();
+			m_pShipList.push_back(destroyer);
+		}
 		break;
 	case SUBMARINE:
-	{
-		CSubmarines* submarines = new CSubmarines();
-		m_pShipList.push_back(submarines);
-	}
+		{
+			CSubmarines* submarines = new CSubmarines();
+			m_pShipList.push_back(submarines);
+		}
 		break;
 	}
-	
 }
 
 //bool CPlayer::IsEmptyField(Position position, Position direction, int size)
@@ -83,25 +82,30 @@ void CPlayer::AddShip(EShipType type)
 
 void CPlayer::PlaceRandomPostion(CShip* pShip)
 {
-	std::cout << pShip->GetName() << std::endl;	////////////////////////////////////////////////////
+	std::cout << pShip->GetName() << std::endl;	// 추후 필수 제거
 
 	char randX = 'A' + rand() % MAX_X;
 	char randY = '1' + rand() % MAX_Y;
 
 	int dir = rand() % DIR_NONE_MAX;
-	
+
+	std::cout << "> rand 1st[" << randX << "][" << randY << "], DIR: " << dir << std::endl;
+
 	for (int i = 0; i < DIR_NONE_MAX; i++)
 	{
 		bool isCanPlaceShip = true;
-		Position rangeCheck(randX, randY);
-		rangeCheck += DIR_VEC[dir] * (pShip->GetHP() > 1 ? pShip->GetHP() - 1 : pShip->GetHP());
+		Position rangeOutCheck(randX, randY);
+		rangeOutCheck += DIR_VEC[dir] * ((pShip->GetHP() > 1) ? pShip->GetHP() - 1 : pShip->GetHP());
 		
-		if (  rangeCheck.x > MAX_X + 'A' 
-			||rangeCheck.x < 'A'
-			||rangeCheck.y > MAX_Y + '1'
-			||rangeCheck.y < '1')	//맵 크기를 넘어 가면 
+		if (  rangeOutCheck.x > MAX_X + 'A' 
+			||rangeOutCheck.x < 'A'
+			||rangeOutCheck.y > MAX_Y + '1'
+			||rangeOutCheck.y < '1')	//맵 크기를 넘어 가면 
 		{
 			dir = ++dir % DIR_NONE_MAX;
+
+			std::cout << "> change dir - " << dir << std::endl;
+
 			continue;
 		}
 
@@ -110,7 +114,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 			Position tempPos(randX, randY);
 			tempPos += DIR_VEC[dir] * j;
 
-			std::cout << "> m_MyField[" << tempPos.x << "][" << tempPos.y << "], DIR: " << dir << std::endl;
+			std::cout << "> change dir[" << tempPos.x << "][" << tempPos.y << "], DIR: " << dir << std::endl;
 
 			if (m_MyField.IsEmpty(Position(tempPos.y - '1',tempPos.x - 'A')) == false)
 			{
@@ -131,10 +135,13 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	}
 
 	//배치 
-	for (int i = 0; i < pShip->GetHP(); i++)
+	for (int i = 1; i <= pShip->GetHP(); i++)
 	{
 		Position tempPos(randX, randY);
 		tempPos = tempPos + DIR_VEC[dir] * i;
+
+		std::cout << "SetTile(" << tempPos.x << ", " << tempPos.y << ");" << std::endl;
+
 		m_MyField.SetTile(Position(tempPos.y - '1', tempPos.x - 'A'), FIELD_EXIST, pShip->GetType());
 		pShip->AddPosition(tempPos);
 	}
