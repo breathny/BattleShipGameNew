@@ -7,14 +7,14 @@ class CField
 public:
 	CField();
 	~CField();
-	CShip* m_pShip;
-	HitResult m_HitResult;
 	
-	void SetFiledType(HitResult hitResult) { m_HitResult = hitResult; }
-	HitResult GetFiledType() { return m_HitResult; }
+	void SetTile(Position pos, EFieldType fieldType, EShipType shipType);
+	EFieldType GetFieldType(Position pos);
+	EShipType GetShipType(Position pos);
+	bool IsEmpty(Position pos);
 
-	void SetShip(CShip* ship) { m_pShip = ship; }
-	ShipType GetShipType();
-
+protected:
+	EFieldType m_TileArray[MAX_Y][MAX_X];
+	EShipType m_ShipArray[MAX_Y][MAX_X];
 };
 

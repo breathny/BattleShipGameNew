@@ -14,9 +14,9 @@ CPlayer::CPlayer()
 	AddShip(BATTLESHIP);
 	AddShip(CRUISER);
 	AddShip(DESTROYER);
-	AddShip(DESTROYER);
+	//AddShip(DESTROYER);
 	AddShip(SUBMARINE);
-	AddShip(SUBMARINE);
+	//AddShip(SUBMARINE);
 }
 
 CPlayer::~CPlayer()
@@ -28,7 +28,7 @@ CPlayer::~CPlayer()
 	m_pShipList.clear();
 }
 
-void CPlayer::AddShip(ShipType type)
+void CPlayer::AddShip(EShipType type)
 {
 	/*shipList[0] = new CAirCraft();
 	shipList[1] = new CBattleship();
@@ -73,86 +73,80 @@ void CPlayer::AddShip(ShipType type)
 	
 }
 
-bool CPlayer::IsEmptyField(Position position, DIRECTION direction,int size)
-{
-	if ( (direction == HORIZON && ((position.x + size-1) >= ('A' +MAX_X)) ) 
-		||( direction == VERTICAL && ((position.y + size-1) >= ('1'+ MAX_Y)) ))
-		return false;
-	
-	for (auto pShip : m_pShipList)
-	{
-		if (direction == HORIZON)
-		{
-			char tempX = position.x;
-			for (int i = 0; i < pShip->GetHP(); i++)
-			{
-				if (pShip->HitCheck(Position(tempX, position.y)) != MISS)
-					return false;
-				tempX += 1;
-			}
-		}
-		else
-		{
-			char tempY = position.y;
-			for (int i = 0; i < pShip->GetHP(); i++)
-			{
-				if (pShip->HitCheck(Position(position.x, tempY)) != MISS)
-					return false;
-				tempY += 1;
-			}
-		}
-	}
-
-	return true;
-}
+//bool CPlayer::IsEmptyField(Position position, Position direction, int size)
+//{
+//	//Position tempPos = position;
+//	/*for (auto pShip : m_pShipList)
+//	{
+//		for (int i = 0; i < size; i++)
+//		{
+//			if (m_MyField[tempPos.y][tempPos.x].)
+//				return false;
+//			tempPos += direction;
+//		}
+//	}*/
+//	return true;
+//}
 
 void CPlayer::PlaceRandomPostion(CShip* pShip)
 {
-	Position randomPosition;
-	DIRECTION  randomDirection;
+	char randX = 'A' + rand() % MAX_X;
+	char randY = '1' + rand() % MAX_Y;
 
-	randomPosition.x = 'A' + (rand() % ((int)MAX_X));
-	randomPosition.y = '1' + (rand() % ((int)MAX_Y));
-	randomDirection = (DIRECTION)(rand() % (int)DIRECTION::MAX);
-
-	//std::cout << "[" << randomPosition.x << ", " << randomPosition.y << "] - ";
-	//std::cout << ((randomDirection == 0) ? "Vertical" : "Horizon") << std::endl;
-	//std::cout << ", HP:" << pShip->GetHP() << std::endl;
-	//std::cout << " ========================== [First]" << std::endl;
-
-	////엠티인지 체크 
-	while (IsEmptyField(randomPosition, randomDirection, pShip->GetHP()) == false)
+	int dir = rand() % DIR_NONE_MAX;
+	
+	for (int i = 0; i < DIR_NONE_MAX; i++)
 	{
-		randomPosition.x = 'A' + (rand() % ((int)MAX_X));
-		randomPosition.y = '1' + (rand() % ((int)MAX_Y));
-		randomDirection = (DIRECTION)(rand() % (int)DIRECTION::MAX);
+		bool isCanPlaceShip = true;
+		Position rangeCheck(randX, randY);
+		rangeCheck += DIR_VEC[dir] * (pShip->GetHP()-1);
+		
+		if( rangeCheck.x > MAX_X + 'A' 
+			||rangeCheck.x < 'A'
+			||rangeCheck.y > MAX_Y + '1'
+			||rangeCheck.y < '1')//맵 크기를 넘어 가면 
+		{
+			dir = ++dir % DIR_NONE_MAX;
+			isCanPlaceShip = false;
+		}
 
-		//std::cout << "[" << randomPosition.x << ", " << randomPosition.y << "] - ";
-		//std::cout << ((randomDirection == 0) ? "Vertical" : "Horizon") << std::endl;
-		//std::cout << ", HP:" << pShip->GetHP() << std::endl;
-		//std::cout << " ========================== [Retry]" << std::endl;
+		for (int j = 0; j < pShip->GetHP(); j++)
+		{
+			if (isCanPlaceShip == false) 
+				break;
 
+			Position tempPos((char)randX, (char)randY);
+			tempPos += DIR_VEC[dir] * j;
+
+			if (m_MyField.IsEmpty(Position(tempPos.y - '1',tempPos.x - 'A')) == false)
+			{
+				dir = ++dir % DIR_NONE_MAX;
+				isCanPlaceShip = false;
+				break;
+			}
+		}
+
+		if (isCanPlaceShip) 
+			break;
+
+		if (i == (DIR_NONE_MAX - 1))
+		{
+			PlaceRandomPostion(pShip);
+			break;
+		}
+		
+		
 	}
 
-	//std::cout << "end IS Empty Func (0 " << std::endl;
-	pShip->SetDirection(randomDirection);
-
-
+	//배치 
 	for (int i = 0; i < pShip->GetHP(); i++)
 	{
-		pShip->AddPosition(randomPosition);
-		//맵에도 표시해주기
-		int x = randomPosition.x - 'A';
-		int y = randomPosition.y - '1';
-
-		m_MyField[y][x].m_pShip = pShip;
-
-		if (pShip->GetDirection() == HORIZON)
-			randomPosition.x += 1;
-		else
-			randomPosition.y += 1;
+		Position tempPos(randX, randY);
+		tempPos = tempPos + DIR_VEC[dir] * i;
+		m_MyField.SetTile(Position(tempPos.y - '1', tempPos.x - 'A'), EXIST, pShip->GetType());
+		pShip->AddPosition(tempPos);
 	}
-	//ShowMyField();
+	ShowMyField();
 }
 
 void CPlayer::ShowMyField()
@@ -162,29 +156,29 @@ void CPlayer::ShowMyField()
 	{
 		for (int x = 0; x < MAX_X; x++)
 		{
-			HitResult hitResult = m_MyField[y][x].GetFiledType();
+			EFieldType fieldType = m_MyField.GetFieldType(Position(y,x));
 
-			if (m_MyField[y][x].m_pShip != nullptr)
+			if (m_MyField.GetFieldType(Position(y, x)) != SHIPTYPE_NONE_MAX)
 			{
 				std::string printShipNames[5] = { "A","B","C","D","S" };
 				std::cout << "0(";
-				std::cout << printShipNames[m_MyField[y][x].GetShipType()] << ") ";
+				std::cout << printShipNames[m_MyField.GetShipType(Position(y, x))] << ") ";
 			}
-			else if (hitResult ==HitResult::NONE)
+			else if (fieldType ==EHitResult::NONE)
 			{
 				std::cout << "0( ) ";
 			}
-			else if(hitResult == HitResult::HIT)
+			else if(fieldType == EHitResult::HIT)
 			{
 				std::string printShipNames[5] = { "A","B","C","D","S" };
 				std::cout << "H(";
-				std::cout << printShipNames[m_MyField[y][x].GetShipType()] <<") ";
+				std::cout << printShipNames[m_MyField.GetShipType(Position(y, x))] <<") ";
 			}
-			else if (hitResult == HitResult::DESTROYED)
+			else if (fieldType == EHitResult::DESTROYED)
 			{
 				std::string printShipNames[5] = { "A","B","C","D","S" };
 				std::cout << "D(";
-				std::cout << printShipNames[m_MyField[y][x].GetShipType()] << ") ";
+				std::cout << printShipNames[m_MyField.GetShipType(Position(y, x))] << ") ";
 			}
 		}
 		std::cout << std::endl;
@@ -204,15 +198,7 @@ void CPlayer::ShipDeployTest()
 	for (auto pShip : m_pShipList)
 	{
 		PlaceRandomPostion(pShip);
-		//pShip->PrintPosition();	// 현재 가진 각 배의 좌표 출력
-	}
-
-	for (int i = 0; i < MAX_Y; i++)
-	{
-		for (int j = 0; j < MAX_X; j++)
-		{
-			m_MyField[i][j].SetFiledType(HitResult::NONE);
-		}
+		pShip->PrintPosition();	// 현재 가진 각 배의 좌표 출력
 	}
 }
 

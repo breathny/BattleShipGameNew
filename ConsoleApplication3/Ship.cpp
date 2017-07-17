@@ -4,14 +4,14 @@
 CShip::CShip(void)
 {
 	m_HP = 0;
-	m_Direction = VERTICAL;
+	m_Direction = Position(0,0);
 }
 
 CShip::~CShip()
 {
 }
 
-CShip::CShip(ShipType types)
+CShip::CShip(EShipType types)
 {
 	m_Type = types;
 	
@@ -54,37 +54,38 @@ void CShip::AddPosition(Position pos)
 	}
 	
 	m_Pos.push_back(pos);
-
-
 }
 
 
-HitResult CShip::HitCheck(Position hitPos)
+EHitResult CShip::HitCheck(Position hitPos, bool isCheckOnly = false)
 {
 	if ((hitPos.x == '0') || (hitPos.y == '0')|| (m_Pos.size() == 0))
 	{
-		return HitResult::MISS;
+		return EHitResult::MISS;
 	}
 
 	for (int i = 0; i < m_HP; i++)
 	{
-		if (m_Pos.size() < i)
+		if (m_Pos.size() <= i)
 			break;
 
 		if ((hitPos.x == m_Pos[i].x)
 			&& (hitPos.y == m_Pos[i].y))
 		{
-		/*	m_Pos.erase(m_Pos.begin() + i);
-			m_HP--;
-*/
-			return (m_HP == 0)? HitResult::DESTROYED : HitResult::HIT;
+			if (isCheckOnly == false)
+			{
+				m_Pos.erase(m_Pos.begin() + i);
+				m_HP--;
+			}
+
+			return (m_HP == 0)? EHitResult::DESTROYED : EHitResult::HIT;
 			//if (m_HP <= 0) //삼항연산자로 줄일수 있다.
 			//	return HitResult::DESTROYED;
 			//else 
 			//	return HitResult::HIT;
 		}
 	}
-	return HitResult::MISS;
+	return EHitResult::MISS;
 }
 
 void CShip::PrintPosition()
@@ -95,9 +96,7 @@ void CShip::PrintPosition()
 	}
 }
 
-
 void CShip::PrintTest()
 {
 	printf("Ship\n");
 }
-
