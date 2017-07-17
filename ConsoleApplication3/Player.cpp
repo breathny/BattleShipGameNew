@@ -15,7 +15,7 @@ CPlayer::CPlayer()
 	AddShip(CRUISER);
 	AddShip(DESTROYER);
 	//AddShip(DESTROYER);
-	AddShip(SUBMARINE);
+	//AddShip(SUBMARINE);
 	//AddShip(SUBMARINE);
 }
 
@@ -30,12 +30,6 @@ CPlayer::~CPlayer()
 
 void CPlayer::AddShip(EShipType type)
 {
-	/*shipList[0] = new CAirCraft();
-	shipList[1] = new CBattleship();
-	shipList[2] = new CCruiser();
-	shipList[3] = new CDestroyer();
-*/
-
 	switch(type)
 	{
 	case AIRCRAFT:
@@ -54,7 +48,6 @@ void CPlayer::AddShip(EShipType type)
 	{
 		CCruiser* cruiser = new CCruiser();
 		m_pShipList.push_back(cruiser);
-
 	}
 		break;
 	case DESTROYER:
