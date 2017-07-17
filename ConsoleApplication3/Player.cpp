@@ -101,7 +101,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	{
 		bool isCanPlaceShip = true;
 		Position rangeCheck(randX, randY);
-		rangeCheck += DIR_VEC[dir] * (pShip->GetHP()-1);
+		rangeCheck += DIR_VEC[dir] * (pShip->GetHP() > 1 ? pShip->GetHP() - 1 : pShip->GetHP());
 		
 		if (  rangeCheck.x > MAX_X + 'A' 
 			||rangeCheck.x < 'A'
@@ -112,12 +112,12 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 			continue;
 		}
 
-		for (int j = 0; j < pShip->GetHP(); j++)
+		for (int j = 0; j < pShip->GetHP()-1; j++)
 		{
 			Position tempPos(randX, randY);
 			tempPos += DIR_VEC[dir] * j;
 
-			std::cout << "m_MyField[" << tempPos.x << "][" << tempPos.y << "]" << m_MyField.GetFieldType(Position(tempPos.y - '1', tempPos.x - 'A')) << std::endl;
+			std::cout << "> m_MyField[" << tempPos.x << "][" << tempPos.y << "], DIR: " << dir << std::endl;
 
 			if (m_MyField.IsEmpty(Position(tempPos.y - '1',tempPos.x - 'A')) == false)
 			{
