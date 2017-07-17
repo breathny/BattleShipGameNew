@@ -3,7 +3,6 @@
 #define MAX_X 8
 #define MAX_Y 8
 
-
 struct Position
 {
 	Position()
@@ -68,15 +67,17 @@ enum EShipType
 	SUBMARINE,
 	SHIPTYPE_NONE_MAX,
 };
+
 enum EFieldType
 {
-	EXIST,
+	FIELD_EXIST,
 	FIELD_HIT,
 	FIELD_MISS,
-	DESTROY,
+	FIELD_DESTROY,
 	FIELD_NONE_MAX,
 };
-enum EDIR
+
+enum EDirection
 {
 	DIR_LEFT,
 	DIR_RIGHT,
@@ -84,6 +85,5 @@ enum EDIR
 	DIR_DOWN,
 	DIR_NONE_MAX
 };
-static Position DIR_VEC[] = { Position(-1,0),Position(1,0),Position(0,-1),Position(0,1) };
-//ÇÊµå 
 
+static Position DIR_VEC[] = { Position(-1,0),Position(1,0),Position(0,-1),Position(0,1) };

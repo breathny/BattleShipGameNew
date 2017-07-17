@@ -56,7 +56,9 @@ void main()
 	////}
 
 	CPlayer player;
+	
 	player.ShipDeployTest();
+
 	player.ShowMyField();
 
 	getchar(); 

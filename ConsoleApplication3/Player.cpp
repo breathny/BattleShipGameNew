@@ -90,6 +90,8 @@ void CPlayer::AddShip(EShipType type)
 
 void CPlayer::PlaceRandomPostion(CShip* pShip)
 {
+	std::cout << pShip->GetName() << std::endl;	////////////////////////////////////////////////////
+
 	char randX = 'A' + rand() % MAX_X;
 	char randY = '1' + rand() % MAX_Y;
 
@@ -101,22 +103,21 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		Position rangeCheck(randX, randY);
 		rangeCheck += DIR_VEC[dir] * (pShip->GetHP()-1);
 		
-		if( rangeCheck.x > MAX_X + 'A' 
+		if (  rangeCheck.x > MAX_X + 'A' 
 			||rangeCheck.x < 'A'
 			||rangeCheck.y > MAX_Y + '1'
-			||rangeCheck.y < '1')//맵 크기를 넘어 가면 
+			||rangeCheck.y < '1')	//맵 크기를 넘어 가면 
 		{
 			dir = ++dir % DIR_NONE_MAX;
-			isCanPlaceShip = false;
+			continue;
 		}
 
 		for (int j = 0; j < pShip->GetHP(); j++)
 		{
-			if (isCanPlaceShip == false) 
-				break;
-
-			Position tempPos((char)randX, (char)randY);
+			Position tempPos(randX, randY);
 			tempPos += DIR_VEC[dir] * j;
+
+			std::cout << "m_MyField[" << tempPos.x << "][" << tempPos.y << "]" << m_MyField.GetFieldType(Position(tempPos.y - '1', tempPos.x - 'A')) << std::endl;
 
 			if (m_MyField.IsEmpty(Position(tempPos.y - '1',tempPos.x - 'A')) == false)
 			{
@@ -129,13 +130,11 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		if (isCanPlaceShip) 
 			break;
 
-		if (i == (DIR_NONE_MAX - 1))
+		if (i == (DIR_NONE_MAX - 1) && isCanPlaceShip == false)
 		{
 			PlaceRandomPostion(pShip);
-			break;
+			return;
 		}
-		
-		
 	}
 
 	//배치 
@@ -143,15 +142,16 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 	{
 		Position tempPos(randX, randY);
 		tempPos = tempPos + DIR_VEC[dir] * i;
-		m_MyField.SetTile(Position(tempPos.y - '1', tempPos.x - 'A'), EXIST, pShip->GetType());
+		m_MyField.SetTile(Position(tempPos.y - '1', tempPos.x - 'A'), FIELD_EXIST, pShip->GetType());
 		pShip->AddPosition(tempPos);
 	}
-	ShowMyField();
 }
 
 void CPlayer::ShowMyField()
 {
 	std::cout << "[m_MyField]" << std::endl;
+	std::string printShipNames[6] = { "A","B","C","D","S"," " };
+
 	for (int y = 0; y < MAX_Y; y++)
 	{
 		for (int x = 0; x < MAX_X; x++)
@@ -160,25 +160,19 @@ void CPlayer::ShowMyField()
 
 			if (m_MyField.GetFieldType(Position(y, x)) != SHIPTYPE_NONE_MAX)
 			{
-				std::string printShipNames[5] = { "A","B","C","D","S" };
-				std::cout << "0(";
-				std::cout << printShipNames[m_MyField.GetShipType(Position(y, x))] << ") ";
+				std::cout << "0(" << printShipNames[m_MyField.GetShipType(Position(y, x))] << ") ";
 			}
-			else if (fieldType ==EHitResult::NONE)
+			else if (fieldType == FIELD_NONE_MAX)
 			{
 				std::cout << "0( ) ";
 			}
-			else if(fieldType == EHitResult::HIT)
+			else if (fieldType == FIELD_HIT)
 			{
-				std::string printShipNames[5] = { "A","B","C","D","S" };
-				std::cout << "H(";
-				std::cout << printShipNames[m_MyField.GetShipType(Position(y, x))] <<") ";
+				std::cout << "H(" << printShipNames[m_MyField.GetShipType(Position(y, x))] <<") ";
 			}
-			else if (fieldType == EHitResult::DESTROYED)
+			else if (fieldType == FIELD_DESTROY)
 			{
-				std::string printShipNames[5] = { "A","B","C","D","S" };
-				std::cout << "D(";
-				std::cout << printShipNames[m_MyField.GetShipType(Position(y, x))] << ") ";
+				std::cout << "D(" << printShipNames[m_MyField.GetShipType(Position(y, x))] << ") ";
 			}
 		}
 		std::cout << std::endl;
@@ -187,9 +181,9 @@ void CPlayer::ShowMyField()
 
 void CPlayer::PrintShip()
 {
-	for (int i = 0; i < (int)m_pShipList.size(); i++)
+	for (auto pShip : m_pShipList)
 	{
-		(*m_pShipList[i]).PrintTest();
+		pShip->PrintTest();
 	}
 }
 
