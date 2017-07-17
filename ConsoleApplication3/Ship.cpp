@@ -11,34 +11,6 @@ CShip::~CShip()
 {
 }
 
-CShip::CShip(EShipType types)
-{
-	m_Type = types;
-	
-	switch (m_Type)
-	{
-	case AIRCRAFT:
-		m_HP = 5;
-		break;
-	case BATTLESHIP:
-		m_HP = 4;
-		break;
-	case CRUISER:
-		m_HP = 3;
-		break;
-	case DESTROYER:
-		m_HP = 2;
-		break;
-	case SUBMARINE:
-		m_HP = 1;
-		break;
-	default:
-		break;
-	}
-}
-
-
-
 void CShip::AddPosition(Position pos)
 {
 	Position tmp = pos;
@@ -49,7 +21,6 @@ void CShip::AddPosition(Position pos)
 
 	if ((pos.x < 'A') || (pos.x > 'H') || (pos.y < '1') || (pos.y > '8'))
 	{
-		//std::cout << "position value is out of range position : " << pos.x << ", " << pos.y << std::endl;
 		return;
 	}
 	

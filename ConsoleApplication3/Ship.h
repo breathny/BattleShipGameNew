@@ -7,15 +7,12 @@ public:
 	CShip(void);
 	~CShip(void);
 
-	CShip(EShipType);
-
-	void AddPosition(Position pos);			// (처음 세팅시에) 배의 영역을 추가한다.
+	void AddPosition(Position pos);					// (처음 세팅시에) 배의 영역을 추가한다.
 	EHitResult HitCheck(Position hitPos, bool );	// 피격을 체크한다.
 	std::string GetName(){ return m_Name;}
 	EShipType GetType(){ return m_Type;}
 	int GetHP() { return m_HP; }
 	Position GetDirection() { return m_Direction; }
-	
 	void SetDirection(Position direction) { m_Direction = direction; }
 
 	void PrintPosition();

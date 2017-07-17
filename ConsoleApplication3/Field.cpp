@@ -36,5 +36,6 @@ EShipType CField::GetShipType(Position pos)
 
 bool CField::IsEmpty(Position pos)
 {
-	return (m_TileArray[pos.y][pos.x] != FIELD_NONE_MAX) ? true : false;
+	//std::cout << "> IsEmpty(" << (char)(pos.y+'1') << ", " << (char)(pos.x+'A') << "); m_TileArry: " << m_TileArray[pos.y][pos.x] << std::endl;
+	return (m_TileArray[pos.x][pos.y] != FIELD_NONE_MAX) ? true : false;
 }
