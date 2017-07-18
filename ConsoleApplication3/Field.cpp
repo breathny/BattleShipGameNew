@@ -9,7 +9,7 @@ CField::CField()
 	{
 		for (int j = 0; j < MAX_X; j++)
 		{
-			SetTile(Position(i, j), FIELD_NONE_MAX, SHIPTYPE_NONE_MAX);
+			SetTile(Position(j, i), FIELD_NONE_MAX, SHIPTYPE_NONE_MAX);
 		}
 	}
 }
@@ -37,5 +37,5 @@ EShipType CField::GetShipType(Position pos)
 bool CField::IsEmpty(Position pos)
 {
 	//std::cout << "> IsEmpty(" << (char)(pos.y+'1') << ", " << (char)(pos.x+'A') << "); m_TileArry: " << m_TileArray[pos.y][pos.x] << std::endl;
-	return (m_TileArray[pos.x][pos.y] != FIELD_NONE_MAX) ? true : false;
+	return (m_TileArray[pos.y][pos.x] == FIELD_NONE_MAX) ? true : false;
 }
