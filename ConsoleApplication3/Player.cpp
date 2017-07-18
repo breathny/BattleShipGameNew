@@ -104,7 +104,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 			{
 				PlaceRandomPostion(pShip);
 				
-				break;
+				return;
 			}
 
 			
@@ -134,7 +134,7 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		if (i == (DIR_NONE_MAX - 1) && isCanPlaceShip == false)
 		{
 			PlaceRandomPostion(pShip);
-			break;
+			return;
 		}
 	}
 
@@ -154,7 +154,7 @@ void CPlayer::ShowMyField()
 {
 	std::cout << "[m_MyField]" << std::endl;
 	std::string printShipNames[6] = { "A","B","C","D","S"," " };
-
+	/*
 	for (int y = 0; y < MAX_Y; y++)
 	{
 		std::cout << (char)('1'+y) << " | ";
@@ -182,6 +182,35 @@ void CPlayer::ShowMyField()
 		std::cout << std::endl;
 	}
 	std::cout << "    [A ] [B ] [C ] [D ] [E ] [ F] [ G] [ H]" << std::endl;
+	*/
+
+	for (int x = 0; x < MAX_X; x++)
+	{
+		std::cout << (char)('A' + x) << " | ";
+		for (int y = 0; y <MAX_Y; y++)
+		{
+			EFieldType fieldType = m_MyField.GetFieldType(Position(x, y));
+
+			if (m_MyField.GetFieldType(Position(x, y)) != SHIPTYPE_NONE_MAX)
+			{
+				std::cout << "0(" << printShipNames[m_MyField.GetShipType(Position(x, y))] << ") ";
+			}
+			else if (fieldType == FIELD_NONE_MAX)
+			{
+				std::cout << "0( ) ";
+			}
+			else if (fieldType == FIELD_HIT)
+			{
+				std::cout << "H(" << printShipNames[m_MyField.GetShipType(Position(x, y))] << ") ";
+			}
+			else if (fieldType == FIELD_DESTROY)
+			{
+				std::cout << "D(" << printShipNames[m_MyField.GetShipType(Position(x, y))] << ") ";
+			}
+		}
+		std::cout << std::endl;
+	}
+	std::cout << "    [1 ] [2 ] [3 ] [4 ] [5 ] [ 6] [ 7] [ 8]" << std::endl;
 }
 
 void CPlayer::PrintShip()
