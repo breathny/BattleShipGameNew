@@ -7,6 +7,7 @@ public:
 	CAirCraft();
 	~CAirCraft();
 	virtual void PrintTest();
+	virtual EHitResult HitCheck(Position hitPos);
 
 };
 

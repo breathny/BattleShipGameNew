@@ -18,9 +18,6 @@
     <ClInclude Include="Ship.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameMode.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="AirCraft.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -48,12 +45,12 @@
     <ClInclude Include="Field.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ship.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameMode.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="AirCraft.cpp">
@@ -78,6 +75,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Field.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

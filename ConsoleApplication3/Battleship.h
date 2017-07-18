@@ -7,5 +7,6 @@ public:
 	CBattleship();
 	~CBattleship();
 	virtual void PrintTest();
+	virtual EHitResult HitCheck(Position hitPos);
 };
 

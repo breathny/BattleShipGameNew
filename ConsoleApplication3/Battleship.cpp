@@ -18,3 +18,12 @@ void CBattleship::PrintTest()
 {
 	printf("BattleShip\n");
 }
+EHitResult CBattleship::HitCheck(Position hitPos)
+{
+	EHitResult hitResult = CShip::HitCheck(hitPos);
+
+	if (hitResult == DESTROYED)
+		return DESTROY_BATTLESHIP;
+
+	return hitResult;
+}

@@ -6,5 +6,7 @@ class CCruiser :
 public:
 	CCruiser();
 	~CCruiser();
+	virtual EHitResult HitCheck(Position hitPos);
+
 };
 

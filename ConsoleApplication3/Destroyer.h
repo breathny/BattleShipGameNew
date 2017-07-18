@@ -6,5 +6,7 @@ class CDestroyer :
 public:
 	CDestroyer();
 	~CDestroyer();
+	virtual EHitResult HitCheck(Position hitPos);
+
 };
 

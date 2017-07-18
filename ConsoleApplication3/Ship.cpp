@@ -13,26 +13,25 @@ CShip::~CShip()
 
 void CShip::AddPosition(Position pos)
 {
-	Position tmp = pos;
-	if (tmp.x > 'a')
-	{
-		tmp.x -= 32;
-	}
+	//if (tmp.x > 'a')
+	//{
+	//	tmp.x -= 32;
+	//}
 
-	if ((pos.x < 'A') || (pos.x > 'H') || (pos.y < '1') || (pos.y > '8'))
-	{
-		return;
-	}
+	//if ((pos.x < 'A') || (pos.x > 'H') || (pos.y < '1') || (pos.y > '8'))
+	//{
+	//	return;
+	//}
 	
 	m_Pos.push_back(pos);
 }
 
 
-EHitResult CShip::HitCheck(Position hitPos, bool isCheckOnly = false)
+EHitResult CShip::HitCheck(Position hitPos)
 {
 	if ((hitPos.x == '0') || (hitPos.y == '0')|| (m_Pos.size() == 0))
 	{
-		return EHitResult::MISS;
+		return MISS;
 	}
 
 	for (int i = 0; i < m_HP; i++)
@@ -43,20 +42,18 @@ EHitResult CShip::HitCheck(Position hitPos, bool isCheckOnly = false)
 		if ((hitPos.x == m_Pos[i].x)
 			&& (hitPos.y == m_Pos[i].y))
 		{
-			if (isCheckOnly == false)
-			{
-				m_Pos.erase(m_Pos.begin() + i);
-				m_HP--;
-			}
 
-			return (m_HP == 0)? EHitResult::DESTROYED : EHitResult::HIT;
+			m_Pos.erase(m_Pos.begin() + i);
+			m_HP--;
+
+			return (m_HP == 0)? DESTROYED : HIT;
 			//if (m_HP <= 0) //삼항연산자로 줄일수 있다.
 			//	return HitResult::DESTROYED;
 			//else 
 			//	return HitResult::HIT;
 		}
 	}
-	return EHitResult::MISS;
+	return MISS;
 }
 
 void CShip::PrintPosition()

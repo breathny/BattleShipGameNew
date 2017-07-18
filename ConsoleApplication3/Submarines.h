@@ -7,5 +7,7 @@ class CSubmarines :
 public:
 	CSubmarines();
 	~CSubmarines();
+	virtual EHitResult HitCheck(Position hitPos);
+
 };
 

@@ -1,12 +1,6 @@
-#include<iostream>
 #include "stdafx.h"
-#include "Ship.h"
-#include "Aircraft.h"
-#include "Battleship.h"
-#include "Cruiser.h"
-#include "Submarines.h"
-#include "Destroyer.h"
-#include "Player.h"
+
+#include "GameManager.h"
 
 
 void main()
@@ -55,11 +49,10 @@ void main()
 	////	printf("%c%c  - %s\n", pos[i].x, pos[i].y, hitString[(int)hitResult].c_str());
 	////}
 
-	CPlayer player;
-	
-	player.ShipDeployTest();
+	CGameManager gameManager;
 
-	player.ShowMyField();
+	gameManager.Init();
+	gameManager.Start();
 
 	getchar(); 
 }

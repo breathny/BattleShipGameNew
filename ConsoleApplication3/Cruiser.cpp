@@ -13,3 +13,12 @@ CCruiser::CCruiser()
 CCruiser::~CCruiser()
 {
 }
+EHitResult CCruiser::HitCheck(Position hitPos)
+{
+	EHitResult hitResult = CShip::HitCheck(hitPos);
+
+	if (hitResult == DESTROYED)
+		return DESTROY_CRUISER;
+
+	return hitResult;
+}
