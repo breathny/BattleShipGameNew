@@ -56,6 +56,25 @@ bool CField::IsEmpty(Position pos)
 		output = true;
 	}
 
-	//std::cout << "> IsEmpty(" << (char)(pos.y+'1') << ", " << (char)(pos.x+'A') << "); m_TileArry: " << m_TileArray[pos.y][pos.x] << std::endl;
+	return output;
+}
+
+bool CField::IsHit(Position pos)
+{
+	bool output = false;
+
+	if (pos.x < 0
+		|| pos.x > MAX_X - 1
+		|| pos.y < 0
+		|| pos.y > MAX_Y - 1)
+	{
+		return false;
+	}
+
+	if (m_TileArray[pos.y][pos.x] == NONE)
+	{
+		output = true;
+	}
+
 	return output;
 }
