@@ -105,10 +105,9 @@ void CPlayer::PlaceRandomPostion(CShip* pShip)
 		m_MyField.SetTile(Position( tempPos.x,tempPos.y), NONE, pShip->GetType());
 		pShip->AddPosition(tempPos);
 	}
-	//ShowMyField();
 }
 
-void CPlayer::ShowMyField()
+void CPlayer::ShowAllField()
 {
 	CField& showField = m_AttackHistoryField;
 

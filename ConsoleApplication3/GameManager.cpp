@@ -39,12 +39,13 @@ void CGameManager::Start()
 			"DESTROY_DESTROYER",
 			"DESTROY_SUBMARINE"
 		};
-		m_Defender.ShowMyField();
 
 		printf_s( "[ %d ] \t  ATTACK Position :[ %c, %c ] Result : %s \n ", turnCnt, pos.x + 'A', pos.y+'1', resultStr[(int)result].c_str());
 		
 		turnCnt++;
 	}
+
+	m_Defender.ShowAllField();
 
 	printf_s(" Game Over! Turn Count : %d", turnCnt);
 }

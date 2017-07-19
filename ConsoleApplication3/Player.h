@@ -12,7 +12,7 @@ public:
 	void AddShip(EShipType type);
 	//bool IsEmptyField(Position position, Position direction, int size);
 	void PlaceRandomPostion(CShip* ship);
-	void ShowMyField();
+	void ShowAllField();
 	Position GetAttackPosition();
 	EHitResult HitCheck(Position pos);
 	bool IsShipAlive();
