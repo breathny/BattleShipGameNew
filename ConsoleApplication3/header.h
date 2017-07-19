@@ -82,4 +82,12 @@ enum EDirection
 	DIR_NONE_MAX
 };
 
+enum ESEEK_STATE
+{
+	SEEK,
+	FIRST_HIT,
+	CHASE_SEEK,
+	CHASE
+
+};
 static Position DIR_VEC[] = { Position(-1,0),Position(1,0),Position(0,-1),Position(0,1) };
